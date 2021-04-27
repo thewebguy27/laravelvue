@@ -18,7 +18,7 @@ class ArticleController extends Controller
         // $articles = Article::get()->toJson(JSON_PRETTY_PRINT);
         // return response($articles, 200);
         // grab articles
-        $articles=Article::paginate(15);
+        $articles=Article::orderBy('created_at','desc')->paginate(5);
         // return collection as a resource
         return ArticleResource::collection($articles);
     }
@@ -33,14 +33,10 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-       
-        // $article->id=$request->article_id;
-        $article->title=$request->title;
-        $article->body=$request->body;
-
-        if($article->save()){
-            return new ArticleResource($article);
-        }
+        Article::create([
+            'title'=>$request->title,
+            'body'=>$request->body
+        ]);
 
     }
 
