@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('articles', require('./components/Article.vue').default);
 Vue.component('navbar',require('./components/navbar.vue').default);
+Vue.component('comment',require('./components/Comment.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

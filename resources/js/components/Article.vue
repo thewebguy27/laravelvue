@@ -21,6 +21,7 @@
                 <p>
                     {{article.body}}
                 </p>
+               <Comment v-bind:articleid="article.id"></Comment>
                 <hr>
                   <button class=" btn btn-info" @click="editArticle(article)">Edit</button>
                 <button class=" btn btn-danger" @click="deleteArticle(article.id)">Delete</button>
@@ -28,8 +29,14 @@
     </div>
 </template>
 <script>
+import Comment from './Comment.vue';
+
 export default {
-    data(){
+    components:{
+        Comment
+    },
+   
+     data(){
         return{
             articles:[],
             article:{
@@ -47,7 +54,7 @@ export default {
         
     },
     methods:{
-        fetchArticles(page_url){
+        fetchArticles(page_url){    
             let vm=this;
             page_url=page_url || '/api/articles'
             axios.get(page_url)

@@ -18,4 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 // // list the articles
 Route::resource('articles', 'ArticleController');
-
+Route::get('articlecomments/{article}','ArticleController@getComments');
+Route::post('comments','CommentsController@create');

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\Http\Resources\Comments;
 use App\Http\Resources\Article as ArticleResource;
+
 class ArticleController extends Controller
 {
     /**
@@ -78,6 +80,19 @@ class ArticleController extends Controller
 
         if($article->save()){
             return new ArticleResource($article);
+        }
+    }
+
+
+    public function getComments(Article $article){
+
+        $comments= $article->comments;
+
+        if($comments->isNotEmpty()){
+            return new Comments($comments);
+        }
+        else{
+             return response()->json('Not found', 400);
         }
     }
 }
