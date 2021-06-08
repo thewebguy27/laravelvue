@@ -4,6 +4,7 @@
             <h5>All comments</h5>
             <p v-for="comment in comments" v-bind:key="comment.id">
                 {{comment.comment}}
+                <span class=" text-muted">{{comment.created_at}}</span>
             </p>
         </div>
     <form v-on:submit.prevent="addComment()">
@@ -21,11 +22,14 @@
 
 <script>
 export default {
+
+    mounted(){
+        this.fetchComments()
+    },
+   
     props:['articleid'],
     
-    mounted(){
-        this.fetchComments()  
-    },
+   
     data(){
         return{
             comments:[],
@@ -43,7 +47,9 @@ export default {
             .then(data=>{
                 this.comment='',
                 alert('Comment added')
+                this.fetchComments()
             })
+            // this.$emit('comments',this.comments)
         },
         fetchComments(){
             axios.get(`api/articlecomments/${this.articleidd}`).then(res=>{

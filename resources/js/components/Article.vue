@@ -16,7 +16,8 @@
                 <li  v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a  @click="fetchArticles(pagination.next_page_url)" class="page-link" >Next</a></li>
             </ul>
             </nav>
-            <div class=" card card-body mb-2" v-for="article in articles" v-bind:key="article.id">
+            <div v-if="!edit">
+                <div class=" card card-body mb-2" v-for="article in articles" v-bind:key="article.id" >
                 <h3>{{article.title}}</h3>
                 <p>
                     {{article.body}}
@@ -26,6 +27,8 @@
                   <button class=" btn btn-info" @click="editArticle(article)">Edit</button>
                 <button class=" btn btn-danger" @click="deleteArticle(article.id)">Delete</button>
             </div>
+            </div>
+           
     </div>
 </template>
 <script>
@@ -109,6 +112,7 @@ export default {
                     this.article.body='';
                     alert('Article Updated');
                     this.fetchArticles();
+                    this.edit=false     
                 });
             }
         },

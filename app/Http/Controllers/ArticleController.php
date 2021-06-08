@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use App\Http\Resources\Comments;
+use App\Http\Resources\CommentsResource ;
 use App\Http\Resources\Article as ArticleResource;
 
 class ArticleController extends Controller
@@ -89,7 +89,7 @@ class ArticleController extends Controller
         $comments= $article->comments;
 
         if($comments->isNotEmpty()){
-            return new Comments($comments);
+            return  CommentsResource::collection($comments);
         }
         else{
              return response()->json('Not found', 400);
